@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camera Capture and Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #image-preview {
+      margin: 20px auto;
+      max-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Camera Capture and Upload</h1>
+  <input type="file" accept="image/*" capture="camera" id="file-input">
+  <div id="image-preview"></div>
+
+  <script>
+    document.getElementById('file-input').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(event) {
+        const imageDataUrl = event.target.result;
+        const img = document.createElement('img');
+        img.src = imageDataUrl;
+        img.width = 200; // Set the image width for preview
+        document.getElementById('image-preview').innerHTML = ''; // Clear previous image
+        document.getElementById('image-preview').appendChild(img);
+      };
+
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>
